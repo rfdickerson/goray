@@ -9,6 +9,8 @@ import (
 	"os"
 )
 
+var sceneObjects []collidable
+
 type vec4 struct {
 	X, Y, Z, W float64
 }
@@ -43,13 +45,17 @@ func (s *sphere) DoesHit(r *ray) float64 {
 	return 20
 }
 
+func castRay(r *ray) color.RGBA {
+	return color.RGBA{255, 0, 255, 255}
+}
+
 func main() {
 	fmt.Print("Raytracing...\n")
 
 	s := sphere{origin: vec4{0, 0, 0, 1}, radius: 0.3}
-	r := ray{origin: vec4{0, 0, 0, 1}, direction: vec4{0, 0, 1, 1}}
+	ray := ray{origin: vec4{0, 0, 0, 1}, direction: vec4{0, 0, 1, 1}}
 
-	depth := s.DoesHit(&r)
+	depth := s.DoesHit(&ray)
 
 	fmt.Printf("Collided at %f", depth)
 
@@ -57,8 +63,9 @@ func main() {
 
 	for i := 0; i < 300; i++ {
 		for j := 0; j < 200; j++ {
-			r := 255 * float32(i) / float32(300)
-			newPixel := color.RGBA{uint8(r), 255, 0, 255}
+			// r := 255 * float32(i) / float32(300)
+			// newPixel := color.RGBA{uint8(r), 255, 0, 255}
+			newPixel := castRay(&ray)
 			newImage.SetRGBA(i, j, newPixel)
 		}
 	}
