@@ -8,5 +8,5 @@ import (
 func main() {
 	fmt.Print("Raytracing...")
 
-	i := image.NewRGBA()
+	i := image.Image()
 }
