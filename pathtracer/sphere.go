@@ -32,7 +32,7 @@ func solveQuadratic(a, b, c float64) (float64, float64) {
 }
 
 // Intersect - get intersection back of Sphere
-func (s *Sphere) Intersect(r *Ray) (*Intersection, bool) {
+func (s Sphere) Intersect(r *Ray) (*Intersection, bool) {
 
 	l := vector.Subtract(&r.origin, &s.origin)
 	a := vector.Dot(&r.direction, &r.direction)
@@ -54,11 +54,11 @@ func (s *Sphere) Intersect(r *Ray) (*Intersection, bool) {
 }
 
 // Normal - get normal of sphere
-func (s *Sphere) Normal(p vector.Vec4) vector.Vec4 {
+func (s Sphere) Normal(p vector.Vec4) vector.Vec4 {
 	return vector.Subtract(&s.origin, &p)
 }
 
 // Surface - gets surface back for the sphere
-func (s *Sphere) Surface() Surface {
+func (s Sphere) Surface() Surface {
 	return Surface{diffuse: vector.Vec4{255, 255, 0, 255}}
 }

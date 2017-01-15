@@ -9,6 +9,12 @@ type Vec4 struct {
 	X, Y, Z, W float64
 }
 
+// NewVector returns a vector object
+func NewVector(x, y, z float64) Vec4 {
+	v := Vec4{X: x, Y: y, Z: z, W: 1}
+	return v
+}
+
 // Norm - Normalize the vector
 func (v *Vec4) Norm() Vec4 {
 	mag := math.Pow(v.X, 2) + math.Pow(v.Y, 2) + math.Pow(v.Z, 2) + math.Pow(v.W, 2)
