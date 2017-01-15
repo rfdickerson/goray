@@ -12,18 +12,12 @@ import (
 
 var sceneObjects []Thing
 
-// Intersection is the intersection information of ray object collision
-type Intersection struct {
-	thing Thing
-	r     Ray
-	dist  float64
-}
-
 func castRay(r *Ray) color.RGBA {
 	return color.RGBA{255, 0, 255, 255}
 }
 
-func main() {
+// StartPathtracing pathtracing
+func StartPathtracing() {
 	fmt.Print("Raytracing...\n")
 
 	s := Sphere{origin: vector.Vec4{0, 0, 0, 1}, radius: 0.3}
