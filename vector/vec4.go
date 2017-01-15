@@ -37,6 +37,11 @@ func Dot(a, b *Vec4) float64 {
 }
 
 // Multiply - multiplies a scalar by a vector
-func Multiply(a float64, b *Vec4) Vec4 {
+func MultiplyS(a float64, b *Vec4) Vec4 {
 	return Vec4{a * b.X, a * b.Y, a * b.Z, a * b.W}
+}
+
+// Multiply - multiplies a scalar by a vector
+func Multiply(a *Vec4, b *Vec4) Vec4 {
+	return Vec4{a.X * b.X, a.Y * b.Y, a.Z * b.Z, a.W * b.W}
 }

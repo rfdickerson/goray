@@ -9,13 +9,13 @@ type Sphere struct {
 	radius float64
 }
 
-func solveQuadratic(a, b, c float64) (float64, float64) {
+func solveQuadratic(a, b, c float64) (float64, float64, bool) {
 
 	// get discriminant
 	d := b*b - 4*a*c
 
 	if d < 0 {
-		return 0, 0
+		return 0, 0, false
 	}
 
 	var q float64
@@ -28,7 +28,7 @@ func solveQuadratic(a, b, c float64) (float64, float64) {
 	x0 := q / a
 	x1 := c / q
 
-	return x0, x1
+	return x0, x1, true
 }
 
 // Intersect - get intersection back of Sphere
@@ -39,7 +39,11 @@ func (s Sphere) Intersect(r *Ray) (*Intersection, bool) {
 	b := 2 * vector.Dot(&r.direction, &l)
 	c := vector.Dot(&l, &l) - s.radius*s.radius
 
-	r0, r1 := solveQuadratic(a, b, c)
+	r0, r1, err := solveQuadratic(a, b, c)
+
+	if err {
+		return nil, false
+	}
 
 	t0 := math.Min(r0, r1)
 	t1 := math.Max(r0, r1)

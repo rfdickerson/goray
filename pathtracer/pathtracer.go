@@ -22,8 +22,13 @@ func castRay(r *Ray) color.RGBA {
 		if hits == true {
 			// fmt.Printf("Ray collided at %f", i.dist)
 
-			normal := i.dist
-			return color.RGBA{uint8(normal * 255), 0, 255, 255}
+			m := vector.MultiplyS(i.dist, &r.direction)
+			intersectionPoint := vector.Add(&r.origin, &m)
+			normal := i.thing.Normal(intersectionPoint)
+
+			fmt.Printf("normal is %f, %f, %f\n", normal.X, normal.Y, normal.Z)
+
+			return color.RGBA{uint8(normal.X * 255), uint8(normal.Y * 255), uint8(normal.Z * 255), 255}
 		}
 	}
 
@@ -37,7 +42,7 @@ func StartPathtracing() {
 	s := Sphere{origin: vector.NewVector(0, 0, 0), radius: 1.0}
 	sceneObjects[0] = s
 
-	newImage := image.NewRGBA(image.Rect(0, 0, 300, 200))
+	newImage := image.NewRGBA(image.Rect(0, 0, width, height))
 
 	origin := vector.NewVector(0, 0, -10)
 
